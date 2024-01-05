@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="stylesheet.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+        <h1> MeleNOma </h1>
+    </head>
+    <body>
+        <b> In 2020, via the World Cancer Research Fund International, Australia had the highest proportion of melenoma diagnosed patients and non-melenoma skin cancer diagnosed patients to total population rates in the world. With 16,171 people diagnosed in 2020, this number continues to rise to this day and poses a serious threat to the lives of daily Australians. </b>
+        <br>
+        <br>
+        <b> MeleNOma is a website that allows you to easily find the UV index at your location and tell you the precautions you should take should you go outside. The goal of this website is to act as a convenient way for Australians to get information regarding their sun protection. </b>
+        <br>
+        <br>
+        <button onclick="getLocation()"> Find my location's UV index! </button>
+
+        <p id="demo"></p>
+
+        <div id = "result"></div>
+        <br>
+        <div id = "uvindexlow" class = "uvindexlow"></div>
+        <div id = "uvindexmoderate" class = "uvindexmoderate></div>
+        <div id = "uvindexhigh" class = "uvindexhigh"></div>
+        <div id = "uvindexvhigh" class = "uvindexvhigh"></div>
+        <div id = "uvindexextreme" class = "uvindexextreme"></div>
+        <br>
+        <div id = "uvresult"></div>
+        <br>
+        <div id = "advice"></div>
+        <br>
+        <div id = "sources" class = "sources"> </div>
+        <br>
+        <div id = "generaladvice"></div>
+
+
+        <div id = "footer" class = "footer"> 
+            <b> MeleNOma utilises openweatherapi.com's One Call API 3.0 updated minutely. MeleNOma's creator is not a certified medical professional and advice should only be taken as a suggestion. Your location is solely required for the API to retrieve the data most relevant to where you are.</b>
+            <br>
+            <b> Sources: https://www.myuv.com.au/understanding-uv/, https://www.aimatmelanoma.org/melanoma-101/prevention/what-is-ultraviolet-uv-radiation/, https://www.cancer.org.au/cancer-information/causes-and-prevention/sun-safety/be-sunsmart, https://www.cancer.org.au/cancer-information/causes-and-prevention/sun-safety/uv-index, https://www.cancer.org.au/cancer-information/causes-and-prevention/sun-safety/about-sunscreen, https://www.cancer.org.au/cancer-information/causes-and-prevention/sun-safety/preventing-skin-cancer. </b>
+        </div>
+
+        <script>            
+            // sources: https://pdskin.com/blogs/uv-index-the-sun-safety-scale
+            // https://www.aimatmelanoma.org/melanoma-101/prevention/what-is-ultraviolet-uv-radiation/
+            // https://www.wcrf.org/cancer-trends/skin-cancer-statistics/
+            // to do: add general advice (re apply every 2 hours, broad spectrum, 20 min before)
+            // see if i can make the timer and twilio sms done
+            function uvcalc() {
+                if (0 <= +uv && +uv < 2) {
+                    document.getElementById("uvresult").innerHTML = "The current UV index level is low.";
+                    document.getElementById("uvindexlow").innerHTML = uv
+                    document.getElementById("advice").innerHTML = "At the current UV level, there is minimal risk for sunburn. Sun protection is recommended if staying outside for 60+ minutes or if near reflective surfaces such as snow or water. Varying on skin type, the average person can stay out in the sun without burning for 60 minutes. Note that you can still get damged by the sun without geting burned."
+                    //document.getElementById("sources").innerHTML = "Sources: https://www.myuv.com.au/understanding-uv/, https://www.aimatmelanoma.org/melanoma-101/prevention/what-is-ultraviolet-uv-radiation/, https://www.cancer.org.au/cancer-information/causes-and-prevention/sun-safety/be-sunsmart, https://www.cancer.org.au/cancer-information/causes-and-prevention/sun-safety/uv-index, https://www.cancer.org.au/cancer-information/causes-and-prevention/sun-safety/about-sunscreen, https://www.cancer.org.au/cancer-information/causes-and-prevention/sun-safety/preventing-skin-cancer. "
+                } else if (2 <= +uv && +uv < 5) {
+                    document.getElementById("uvresult").innerHTML = "The current UV index level is moderate.";
+                    document.getElementById("uvindexmoderate").innerHTML = uv
+                    document.getElementById("advice").innerHTML = "At the current UV level, there is a moderate risk for sunburn. Sun protection is recommended when going outside EVEN WHEN IT IS CLOUDY, WINDY, OR COOL. Slip on a shirt, slop on some sunscreen (at least SPF 30), slap on a hat, seek shelter, and slide on some sunglasses. Varying on skin type, the average person can stay out in the sun without burning for 20 minutes. Note that you can still get damged by the sun without geting burned."
+                    //document.getElementById("sources").innerHTML = "Sources: https://www.myuv.com.au/understanding-uv/, https://www.aimatmelanoma.org/melanoma-101/prevention/what-is-ultraviolet-uv-radiation/, https://www.cancer.org.au/cancer-information/causes-and-prevention/sun-safety/be-sunsmart, https://www.cancer.org.au/cancer-information/causes-and-prevention/sun-safety/uv-index, https://www.cancer.org.au/cancer-information/causes-and-prevention/sun-safety/about-sunscreen, https://www.cancer.org.au/cancer-information/causes-and-prevention/sun-safety/preventing-skin-cancer. "
+                } else if (5 <= +uv && +uv < 7) {
+                    document.getElementById("uvresult").innerHTML = "The current UV index level is high.";
+                    document.getElementById("uvindexhigh").innerHTML = uv
+                    document.getElementById("advice").innerHTML = "At the current UV level, there is a high risk for sunburn. Sun protection is heavily recommended when going outside EVEN WHEN IT IS CLOUDY, WINDY, OR COOL. Slip on a shirt, slop on some sunscreen (at least SPF 30), slap on a hat, seek shelter, and slide on some sunglasses. Varying on skin type, the average person can stay out in the sun without burning for 20 minutes. Note that you can still get damged by the sun without geting burned."
+                    //document.getElementById("sources").innerHTML = "Sources: https://www.myuv.com.au/understanding-uv/, https://www.aimatmelanoma.org/melanoma-101/prevention/what-is-ultraviolet-uv-radiation/, https://www.cancer.org.au/cancer-information/causes-and-prevention/sun-safety/be-sunsmart, https://www.cancer.org.au/cancer-information/causes-and-prevention/sun-safety/uv-index, https://www.cancer.org.au/cancer-information/causes-and-prevention/sun-safety/about-sunscreen, https://www.cancer.org.au/cancer-information/causes-and-prevention/sun-safety/preventing-skin-cancer. "
+                } else if (7 <= +uv && +uv < 10) {
+                    document.getElementById("uvresult").innerHTML = "The current UV index level is very high.";
+                    document.getElementById("uvindexvhigh").innerHTML = uv
+                    document.getElementById("advice").innerHTML = "At the current UV level, there is a very high risk for sunburn. Going outside is NOT recommended during this time EVEN WHEN IT IS CLOUDY, WINDY, OR COOL. However, if you do, extra protection is required. Slip on a shirt made from tightly woven fabrics, slop on some sunscreen (at least SPF 50), slap on a hat, seek shelter, and slide on some sunglasses. Varying on skin type, the average person can stay out in the sun without burning for 10 minutes. Note that you can still get damged by the sun without geting burned."
+                    //document.getElementById("sources").innerHTML = "Sources: https://www.myuv.com.au/understanding-uv/, https://www.aimatmelanoma.org/melanoma-101/prevention/what-is-ultraviolet-uv-radiation/, https://www.cancer.org.au/cancer-information/causes-and-prevention/sun-safety/be-sunsmart, https://www.cancer.org.au/cancer-information/causes-and-prevention/sun-safety/uv-index, https://www.cancer.org.au/cancer-information/causes-and-prevention/sun-safety/about-sunscreen, https://www.cancer.org.au/cancer-information/causes-and-prevention/sun-safety/preventing-skin-cancer. "
+                } else if (10 <= +uv) {
+                    document.getElementById("uvresult").innerHTML = "The current UV index level is extreme.";
+                    document.getElementById("uvindexextreme").innerHTML = uv
+                    document.getElementById("advice").innerHTML = "At the current UV level, there is a extreme for sunburn. Going outside is NOT recommended AT ALL during this time EVEN WHEN IT IS CLOUDY, WINDY, OR COOL. However, if you do, extra protection is NECCENSARY. Slip on a shirt made from tightly woven fabrics, slop on some sunscreen (at least SPF 50), slap on a hat (wide-brimmed if available), seek shelter, and slide on some sunglasses (preferrable ones that block out 99%-100% of all UV rays). Varying on skin type, the average person can stay out in the sun without burning for 5 minutes. Note that you can still get damged by the sun without geting burned."
+                    //document.getElementById("sources").innerHTML = "Sources: https://www.myuv.com.au/understanding-uv/, https://www.aimatmelanoma.org/melanoma-101/prevention/what-is-ultraviolet-uv-radiation/, https://www.cancer.org.au/cancer-information/causes-and-prevention/sun-safety/be-sunsmart, https://www.cancer.org.au/cancer-information/causes-and-prevention/sun-safety/uv-index, https://www.cancer.org.au/cancer-information/causes-and-prevention/sun-safety/about-sunscreen, https://www.cancer.org.au/cancer-information/causes-and-prevention/sun-safety/preventing-skin-cancer. "
+                }
+            }
+
+            // IDEAS: USE TWILIO TO REMIND PEOPLE TO REAPPLY SUNSCREEN
+            // MAYBE ALSO SOMETHING TO LIKE TRACK HOW LONG YOU'VE BEEN IN THE SUN AND IF 2 HOURS HAS PASSED TWILIO SENDS U A THING.
+            // DON'T BOTHER IF NO TIME. 
+
+
+            var temp
+            var uv
+            async function makeAPICall() {
+                const URL = "https://api.openweathermap.org/data/3.0/onecall?lat=" + lat + "&lon=" + long + "&units=metric&appid=f5a36aeb256b6c787dc81a8db9d9591b"; // open weather api
+                const result = await fetch(URL)
+                result.json().then(data =>{
+                    console.log(data)
+                    temp = data.current.temp;
+                    uv = data.current.uvi;
+                    document.getElementById("result").innerHTML = "It's currently " + temp + "C and the UV index is:";
+                    uvcalc()
+                })
+            }
+            
+
+            const x = document.getElementById("demo");
+
+            function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(recordPosition);
+            } else { 
+                x.innerHTML = "Geolocation is not supported by this browser.";
+            }
+            }
+
+
+            var lat
+            var long
+            function recordPosition(position) {
+            lat = position.coords.latitude
+            long = position.coords.longitude
+            makeAPICall()
+            }
+        </script>
+    </body>
+    
+</html>

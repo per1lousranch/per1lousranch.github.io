@@ -1,0 +1,44 @@
+body {
+    background-color: grey;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+button {
+  font-family: 'Montserrat', sans-serif;
+  background-color: grey;
+}
+
+#uvindexlow {
+  font-size: 50px;
+  background-color: green;
+}
+
+#uvindexmoderate {
+  font-size: 50px;
+  background-color: yellow;
+}
+  
+#uvindexhigh {
+  font-size: 50px;
+  background-color: orange;
+}
+
+#uvindexvhigh {
+  font-size: 50px;
+  background-color: red;
+}
+
+#uvindexextreme {
+  font-size: 50px;
+  background-color: purple;
+}
+
+#footer {
+  position: fixed;
+  bottom: 0;
+  padding-bottom: 5px;
+  width: 100%;
+  font-size: 10px;
+}
+
