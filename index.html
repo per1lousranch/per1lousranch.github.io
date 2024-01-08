@@ -140,10 +140,10 @@
                 inputElement.addEventListener('keydown', function (event) {
                     if (event.keyCode === 13) {
                         inputValue = inputElement.value;
-                        console.log('Input value:', inputValue);
+                        //console.log('Input value:', inputValue);
                         inputElement.value = '';
-                        event.preventDefault();
                         getLocationManual();
+                        event.preventDefault();
                 }
             });
             });
