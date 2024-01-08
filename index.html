@@ -14,10 +14,13 @@
         <b> MeleNOma is a website that allows you to easily find the UV index at your location and tell you the precautions you should take should you go outside. The goal of this website is to act as a convenient way for Australians to get information regarding their sun protection. </b>
         <br>
         <br>
-        <b> Note that in order to find your location, the W3C Geolocation API is used which sometimes does not use a global positioning system to find your location and instead may return a slightly different location to yours. Rest assured, the location is often one that is close to you. Your location is solely required for the API to retrieve the data most relevant to where you are and is not stored anywhere. </b>
+        <b> Note that in order to find your location, the W3C Geolocation API is used which sometimes does not use a global positioning system (if your system does not have the capability) to find your location and instead may return a slightly different location to yours via Wi-Fi positioning system, IP address location, or mobile network location. Rest assured, the location is often one that is close to you. Your location is solely required for the API to retrieve the data most relevant to where you are and is not stored anywhere. If you would like to get a more accurate result, please enter the name of your suburb below. </b>
         <br>
         <br>
-        <button onclick="getLocation()"> Find my location's UV index! </button>
+        <input type="text" id="suburb" name="suburb" placeholder="Enter suburb here">
+        <br>
+        <br>
+        <button onclick="getLocationW3C()"> Find my location's UV index! (W3C Geolocation API) </button>
         
         <p id="demo"></p>
 
@@ -43,11 +46,9 @@
         </div>
 
         <script>            
-            // sources: https://pdskin.com/blogs/uv-index-the-sun-safety-scale
-            // https://www.aimatmelanoma.org/melanoma-101/prevention/what-is-ultraviolet-uv-radiation/
-            // https://www.wcrf.org/cancer-trends/skin-cancer-statistics/
-            // to do: add general advice (re apply every 2 hours, broad spectrum, 20 min before)
-            // see if i can make the timer and twilio sms done
+            // to do: add general advice (re apply every 2 hours, broad spectrum, 20 min before). done.
+            // see if i can make the timer and twilio sms done (probably wont)
+            // get the manual inputting for greater accuracy using postcode api done (main prio, then filming. twilio if have time.)
             function uvcalc() {
                 if (0 <= +uv && +uv < 2) {
                     document.getElementById("uvresult").innerHTML = "The current UV index level is low.";
@@ -82,10 +83,6 @@
                 }
             }
 
-            // IDEAS: USE TWILIO TO REMIND PEOPLE TO REAPPLY SUNSCREEN
-            // MAYBE ALSO SOMETHING TO LIKE TRACK HOW LONG YOU'VE BEEN IN THE SUN AND IF 2 HOURS HAS PASSED TWILIO SENDS U A THING.
-            // DON'T BOTHER IF NO TIME. 
-
 
             var temp
             var uv
@@ -104,7 +101,7 @@
 
             const x = document.getElementById("demo");
 
-            function getLocation() {
+            function getLocationW3C() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(recordPosition);
             } else { 
@@ -115,11 +112,35 @@
 
             var lat
             var long
+
             function recordPosition(position) {
             lat = position.coords.latitude
             long = position.coords.longitude
             makeAPICall()
             }
+
+            
+            async function getLocationManual() {
+                const suburbURL = "v0.postcodeapi.com.au/suburbs.json?name=" + inputValue;
+                const suburbresult = await fetch(suburbURL)
+                console.log(suburbresult)
+            }
+            
+
+            var inputValue
+            document.addEventListener('DOMContentLoaded', function () {
+                var inputElement = document.getElementById('suburb');
+                inputElement.addEventListener('keydown', function (event) {
+                    if (event.keyCode === 13) {
+                        inputValue = inputElement.value;
+                        console.log('Input value:', inputValue);
+                        inputElement.value = '';
+                        event.preventDefault();
+                        getLocationManual();
+                }
+            });
+            });
+
         </script>
     </body>
     
