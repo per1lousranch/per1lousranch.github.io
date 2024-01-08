@@ -124,7 +124,7 @@
                 console.log(inputValue)
                 const suburbURL = "v0.postcodeapi.com.au/suburbs.json?name=" + inputValue;
                 const suburbresult = await fetch(suburbURL)
-                result.json().then(data =>{
+                suburbresult.json().then(data =>{
                     console.log(data)
                     //temp = data.current.temp;
                     //uv = data.current.uvi;
