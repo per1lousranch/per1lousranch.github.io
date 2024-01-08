@@ -114,16 +114,23 @@
             var long
 
             function recordPosition(position) {
-            lat = position.coords.latitude
-            long = position.coords.longitude
-            makeAPICall()
+                lat = position.coords.latitude
+                long = position.coords.longitude
+                makeAPICall()
             }
 
             
-            function getLocationManual() {
+            async function getLocationManual() {
+                console.log(inputValue)
                 const suburbURL = "v0.postcodeapi.com.au/suburbs.json?name=" + inputValue;
-                const suburbresult = fetch(suburbURL)
-                console.log(suburbresult)
+                const suburbresult = await fetch(suburbURL)
+                result.json().then(data =>{
+                    console.log(data)
+                    //temp = data.current.temp;
+                    //uv = data.current.uvi;
+                    //document.getElementById("result").innerHTML = "It's currently " + temp + "C and the UV index is:";
+                    //uvcalc()
+                })
             }
             
 
