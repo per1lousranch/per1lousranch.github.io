@@ -124,13 +124,14 @@
                 console.log(inputValue)
                 const suburbURL = "https://v0.postcodeapi.com.au/suburbs.json?name=" + inputValue;
                 const suburbresult = await fetch(suburbURL)
-                suburbresult.json().then(data =>{
-                    console.log(data)
+                console.log(suburbresult)
+                //suburbresult.json().then(data =>{
+                    //console.log(data)
                     //temp = data.current.temp;
                     //uv = data.current.uvi;
                     //document.getElementById("result").innerHTML = "It's currently " + temp + "C and the UV index is:";
                     //uvcalc()
-                })
+                //})
             }
             
 
