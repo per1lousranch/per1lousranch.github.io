@@ -122,7 +122,7 @@
             
             async function getLocationManual() {
                 console.log(inputValue)
-                const suburbURL = "v0.postcodeapi.com.au/suburbs.json?name=" + inputValue;
+                const suburbURL = "https://v0.postcodeapi.com.au/suburbs.json?name=" + inputValue;
                 const suburbresult = await fetch(suburbURL)
                 suburbresult.json().then(data =>{
                     console.log(data)
