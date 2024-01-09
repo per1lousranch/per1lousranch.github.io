@@ -122,29 +122,10 @@
             
             async function getLocationManual() {
                 console.log(inputValue);
-                try {
-                    const response = await fetch("https://v0.postcodeapi.com.au/suburbs.json?name=" + inputValue, {
-                        method: "GET",
-                        mode: "cors",
-                        cache: "no-cache",
-                        credentials: "same-origin",
-                        headers: {
-                            "Content-Type": "application/json",
-                            // Remove the duplicate 'Content-Type' header
-                        },
-                        redirect: "follow",
-                        referrerPolicy: "no-referrer",
-                    });
+                const suburburl = "v0.postcodeapi.com.au/suburbs.json?name=" + inputValue;
+                const suburbresult = await fetch(suburburl)
+                console.log(suburbresult)
 
-                    if (!response.ok) {
-                        throw new Error("Network response was not ok");
-                    }
-
-                    const suburbData = await response.json();
-                    console.log(suburbData);
-                } catch (error) {
-                    console.error("Error fetching data:", error);
-                }
             }
 
             
