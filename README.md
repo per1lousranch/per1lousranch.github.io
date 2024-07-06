@@ -1,1 +1,1 @@
-NOTE: Currently does not work as I am no longer subscribed to One Call API 3.0.
+NOTE: One Call API 3.0 expired, so will not function with current key.
